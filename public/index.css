@@ -1,0 +1,13 @@
+html, body {
+	padding: 0;
+	margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+	font-family: 'Press Start 2P';
+	color: white;
+}
+
+.startGame {
+	transition: 0.2s;
+}

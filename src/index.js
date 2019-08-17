@@ -1,12 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// game engine
+import SpaceInvaders from './spaceinvaders';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// howler
+import { Howl, Howler } from 'howler';
+
+// sounds
+import Theme from './resources/sounds/theme.mp3';
+
+/*var themeSong = new Howl({
+	src: [Theme],
+	autoplay: true,
+	loop: true,
+	volume: 0.5,
+});
+
+themeSong.play();*/
+
+ReactDOM.render(<SpaceInvaders/>, document.getElementById('root'));
