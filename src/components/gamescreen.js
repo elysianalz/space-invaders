@@ -9,6 +9,7 @@ import Shoot from '../resources/sounds/shoot.wav';
 
 // components
 import Turret from './turret';
+import TurretBullet from './turretbullet';
 
 // delay
 const delay = require('delay');
@@ -38,47 +39,97 @@ export default class GameScreen extends React.Component {
 			turretPos: {
 				left: 1,
 				right: 760,
+			},
+
+			bullet: {
+				top: 460,
+				left: 20.5,
+				canShoot: true,
+				active: false,
+				opacity: 0,
 			}
 		}
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		ReactDOM.findDOMNode(this.refs.container).focus();
+		this.bulletTick();
+	}
+
+	bulletTick() {
+		let bullet = this.state.bullet;
+		window.setInterval(() => {
+			if (bullet.active && bullet.top > 0)
+			{
+				bullet.top -= 5;
+				this.setState({bullet: bullet,});
+			} else {
+				this.resetBullet();
+			}
+		}, 12);
+	}
+
+	resetBullet() {
+		let bullet = this.state.bullet;
+		bullet.opacity = 0;
+		bullet.top = 460;
+		bullet.canShoot = true;
+		bullet.active = false;
+		bullet.left = this.state.turretPos.left + 20.5;
+		this.setState({bullet: bullet});
+	}
+
+	shoot() {
+
+		let bullet = this.state.bullet;
+
+		if (bullet.canShoot && !bullet.active) {
+			pew.play();
+			bullet.canShoot = false;
+			bullet.active = true;
+			bullet.opacity = 1;
+			this.setState({bullet: bullet,});
+		}
+
 	}
 
 	handleKeyDown(e) {
+
 		let turretPos = this.state.turretPos;
+		let bullet = this.state.bullet;
 		
-		switch(e.key){
-			
+		switch(e.key)
+		{	
 			case 'ArrowLeft':
 				if (turretPos.left > 0)
 				{
 					turretPos.left -= 5;
 					turretPos.right += 5;
+					if(!bullet.active) {
+						bullet.left -= 5
+					} 
 				}
-				break;
+			break;
 			
 			case 'ArrowRight':
 				if (turretPos.right > 0) 
 				{
 					turretPos.right -= 5;
 					turretPos.left += 5;
+					if(!bullet.active) {
+						 bullet.left += 5
+					}
 				}
-				break;
+			break;
 
 			case ' ':
-				// move handling into state
-				/*(async () => {
-				    await delay(1000);
-				})();*/
-				pew.play();
-				break;
-		
+				this.shoot();
+			break;
 		}
 
 		this.setState({
 			turretPos: turretPos,
+			bulletPos: bullet,
 		});
 
 	}
@@ -91,6 +142,7 @@ export default class GameScreen extends React.Component {
 				style={styles.container}
 				ref='container'>
 
+				<TurretBullet position={this.state.bullet} />
 				<Turret position={this.state.turretPos} />
 
 			</div>
