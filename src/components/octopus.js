@@ -7,6 +7,7 @@ const styles = {
 	octopus: {
 		width: 44,
 		height: 30,
+		margin: 10,
 		backgroundImage: 'url(' + Image + ')',
 		backgroundRepeat: 'no-repeat',
 		backgroundSize: '140px 140px',

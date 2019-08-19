@@ -10,12 +10,9 @@ import Shoot from '../resources/sounds/shoot.wav';
 // components
 import Turret from './turret';
 import TurretBullet from './turretbullet';
-import Squid from './squid';
-import Crab from './crab';
-import Octopus from './octopus';
 
-// delay
-const delay = require('delay');
+// fleet
+import Fleet from './fleet';
 
 // sounds
 var pew = new Howl({
@@ -27,6 +24,9 @@ var pew = new Howl({
 
 const styles = {
 	container: {
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'space-between',
 		width: 800,
 		height: 500,
 		padding: 30,
@@ -45,7 +45,8 @@ export default class GameScreen extends React.Component {
 			},
 
 			bullet: {
-				top: 460,
+				/*bottom: -300,
+				top: 460,*/
 				left: 20.5,
 				canShoot: true,
 				active: false,
@@ -56,6 +57,7 @@ export default class GameScreen extends React.Component {
 
 	componentDidMount() {
 		ReactDOM.findDOMNode(this.refs.container).focus();
+		console.log(this.refs.turretBullet);
 		this.bulletTick();
 	}
 
@@ -75,7 +77,8 @@ export default class GameScreen extends React.Component {
 	resetBullet() {
 		let bullet = this.state.bullet;
 		bullet.opacity = 0;
-		bullet.top = 460;
+		/*bullet.top = 460;
+		bullet.bottom = -300;*/
 		bullet.canShoot = true;
 		bullet.active = false;
 		bullet.left = this.state.turretPos.left + 20.5;
@@ -140,17 +143,20 @@ export default class GameScreen extends React.Component {
 	render() {
 		return	(
 			<div 
-			
+
 				onKeyDown={(e) => this.handleKeyDown(e)} 
 				tabIndex='-20' 
 				style={styles.container}
 				ref='container'>
 
-				<Octopus />
-				<Crab />
-				<Squid />
-				<TurretBullet position={this.state.bullet} />
-				<Turret position={this.state.turretPos} />
+				<div>
+					<Fleet />
+				</div>
+
+				<div>
+					<TurretBullet ref="turretBullet" position={this.state.bullet} />
+					<Turret position={this.state.turretPos} />
+				</div>
 
 			</div>
 		)

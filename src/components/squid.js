@@ -8,6 +8,7 @@ const styles = {
 		position: 'relative',
 		width: 32,
 		height: 31,
+		margin: '10px 16px',
 		backgroundImage: 'url(' + Image + ')',
 		backgroundRepeat: 'no-repeat',
 		backgroundSize: '140px 140px',

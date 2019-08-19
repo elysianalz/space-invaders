@@ -6,6 +6,7 @@ const styles = {
 	crab: {
 		width: 41,
 		height: 31,
+		margin: '10px 11.5px',
 		backgroundImage: 'url(' + Image + ')',
 		backgroundRepeat: 'no-repeat',
 		backgroundSize: '140px 140px',
