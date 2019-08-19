@@ -7,7 +7,7 @@ import Image from '../resources/graphics/si_characters.png';
 const styles = {
 	turret: {
 		position: 'relative',
-		top: 470,
+		bottom: -370,
 		width: 43,
 		height: 30,
 		backgroundImage: 'url(' + Image + ')',
